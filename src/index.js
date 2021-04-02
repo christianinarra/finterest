@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 const express = require('express');
 const morgan = require('morgan');
 const multer = require('multer');
@@ -20,8 +24,7 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'public/img/uploads'),
-    filename: (req, file, cb, filename) => {
-        console.log(file);
+    filename: (req, file, cb, filename) => {        
         cb(null, uuidv4() + path.extname(file.originalname));
     }
 }) 
